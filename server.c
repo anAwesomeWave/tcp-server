@@ -17,6 +17,8 @@ int main(){
     server_addr.sin_port = htons(55555);
     server_addr.sin_addr.s_addr = INADDR_ANY; // 0.0.0.0
 
+    int opt = 1;
+    setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)); // чтобы порт не "залипал".
     int e = bind(s, (struct sockaddr*)&server_addr, sizeof server_addr);
 
     if(e == -1) {

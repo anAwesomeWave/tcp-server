@@ -8,7 +8,7 @@
 int main(){
     int s = socket(AF_INET, SOCK_STREAM, 0);
     if(s == -1) {
-        perror("an error occured while creating socket.");
+        perror("an error occurred while creating socket.");
         return -1;
     }
 
@@ -24,17 +24,19 @@ int main(){
         return -2;
     }
 
-    listen(s, 3);
+    listen(s, 5);
 
     struct sockaddr_in client_addr = {0};
     socklen_t len = sizeof(client_addr);
     int clsock = accept(s, (struct sockaddr*)&client_addr, &len);
 
-    if(newsock == -1) {
+    if(clsock == -1) {
         perror("error while establishing connection with client.");
         return -3;
+    }else {
+        printf("connection established.\n");
     }
-    char buf[]= "You have reached the server.";
+    char buf[]= "You have reached the server.\n";
     write(clsock, buf, sizeof buf);
     close(clsock);
 }
